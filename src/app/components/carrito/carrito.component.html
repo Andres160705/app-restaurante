@@ -1,0 +1,27 @@
+
+<body>
+  <header class="bg-dark text-white py-3 sticky-top position-relative">
+    <h1 class="text-center mb-0">SABOR CRIOLLO SAS</h1>
+  </header>
+  <br>
+<div class="d-flex justify-content-center align-items-center flex-column d-grid gap-3">
+  <h1>Carrito de Compras</h1>
+  
+  <div class="card" style="width: 18rem;" *ngFor="let producto of listaCarrito" >
+    <img [src]="producto.imagen" class="card-img" [alt]="producto.alt">
+    <div class="card-body">
+      <h5 class="card-title">{{producto.nombre}}</h5>
+      <p class="card-text">{{producto.descripcion}}</p>
+      <p class="card-text" >$: {{producto.precio | currency:'COP':'symbol'}}</p>
+    </div>
+  </div>
+  <p class="fs-2">$: {{precioTotal | currency:'COP ':'symbol'}}</p>
+
+  <button class="btn btn-success" (click)="pagar()">Pagar</button>
+
+  <h3>Estado del Pedido: {{estadoSeleccionado}} </h3>
+
+</div>
+
+  
+</body>

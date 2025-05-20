@@ -1,0 +1,16 @@
+<body>
+<form (submit)="iniciarSesion()">
+    <h2>Login</h2>
+
+    <label for="">Correo Electrónico</label>
+    <input type="email" [(ngModel)]="usuario.correo" placeholder="Ingrese el correo electrónico" name="correo">
+    
+    <label for="">Contraseña</label>
+    <input type="password" [(ngModel)]="usuario.password" placeholder="Ingrese la contraseña" name="password">
+    
+    <button type="submit">Ingresar</button>
+    <hr>
+    <p>Google autenticación</p>
+    <button (click)="autenticarConGoogle()">Ingresar</button>
+</form>
+</body>

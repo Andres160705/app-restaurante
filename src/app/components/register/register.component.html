@@ -1,0 +1,26 @@
+<div class="registro-background">
+  <form (ngSubmit)="agregarUsuario()" #registroForm="ngForm">
+    <h2>Registrar</h2>
+
+    <label for="nombre">Nombre</label>
+    <input type="text" [(ngModel)]="usuario.nombre" placeholder="Ingrese el nombre" name="nombre" id="nombre">
+
+    <label for="correo">Correo Electrónico</label>
+    <input type="email" [(ngModel)]="usuario.correo" placeholder="Ingrese el correo electrónico" name="correo" id="correo">
+
+    <label for="password">Contraseña</label>
+    <input type="password" [(ngModel)]="usuario.password" placeholder="Ingrese la contraseña" name="password" id="password">
+
+    <button type="submit">Registrarse</button>
+
+    <p>¿Ya tienes Cuenta?
+    <button (click)="irLogin()">Ir a Login</button>
+  </p>
+
+  <hr>
+  <p>Google autenticación</p>
+  <button (click)="autenticarConGoogle()">Ingresar</button>
+  </form>
+
+  
+</div>

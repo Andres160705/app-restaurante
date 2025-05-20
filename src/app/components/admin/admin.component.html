@@ -1,0 +1,139 @@
+<body>
+    <div class="container">
+        <!-- aisde section start -->
+        <aside>
+            <div class="top">
+
+                <div class="log">
+                    <h2>C<span class="danger">BABAR</span></h2>
+                </div>
+                <div class="close">
+                    <span class="material-symbols-outlined">close</span>
+                </div>
+            </div>
+            <!--Fin de Top-->
+
+            <div class="sidebar">
+                <a href="/admin">
+                    <span class="material-symbols-outlined">grid_view</span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="/carrito">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <h3>Pedidos</h3>
+                </a>
+                <a href="/menu">
+                    <span class="material-symbols-outlined">restaurant</span>
+                    <h3>Menú</h3>
+                </a>
+                <a href="/login">
+                    <span class="material-symbols-outlined">logout</span>
+                    <h3>Salir</h3>
+                </a>
+            </div>
+        </aside>
+        <!--aside section end-->
+
+        <!--main section start-->
+        <!-- Contenido principal -->
+        <main>
+            <h1>Dashboard</h1>
+
+            <div class="date">
+                <input type="date">
+            </div>
+
+            <div class="insights">
+                <div class="sales">
+                    <span class="material-symbols-outlined">trending_up</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Ventas Totales</h3>
+                            <h1>25,023</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle r="30" cy="40" cx="40"></circle>
+                            </svg>
+                            <div class="number">80%</div>
+                        </div>
+                    </div>
+                    <small>Ultimas 24 horas</small>
+                </div>
+
+                <div class="expenses">
+                    <span class="material-symbols-outlined">local_mall</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Gastos</h3>
+                            <h1>25,023</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle r="30" cy="40" cx="40"></circle>
+                            </svg>
+                            <div class="number">80%</div>
+                        </div>
+                    </div>
+                    <small>Ultimas 24 horas</small>
+                </div>
+
+                <div class="income">
+                    <span class="material-symbols-outlined">stacked_line_chart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Ingresos</h3>
+                            <h1>25,023</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle r="30" cy="40" cx="40"></circle>
+                            </svg>
+                            <div class="number">80%</div>
+                        </div>
+                    </div>
+                    <small>Ultimas 24 horas</small>
+                </div>
+            </div>
+            <!--Fin del isnide-->
+
+            <!--Orden Reciente-->
+            <br>
+            <h2>Ordeces Recientes</h2>
+            <div class="recent_order" *ngFor="let orden of listaOrdenes; let i = index">
+                <h3>Orden #{{ i + 1 }} - Fecha: {{ orden.fecha | date:'short' }}</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre del Producto</th>
+                            <th>Estado</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let producto of orden.productos; let j = index">
+                            <td>{{ producto.nombre }}</td>
+                            <td>
+                                <select [(ngModel)]="producto.estado"
+                                    (change)="actualizarEstado(orden.id, orden.productos)">
+                                    <option *ngFor="let estado of estados" [value]="estado">{{ estado }}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button (click)="eliminarProducto(i, j)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr>
+            </div>
+            <!--Fin Orden Reciente-->
+
+        </main>
+
+        <!--main section end-->
+
+    </div>
+</body>

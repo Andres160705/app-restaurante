@@ -1,0 +1,132 @@
+<body>
+  <!-- Header -->
+  <header class="text-white py-3 sticky-top position-relative">
+    <h1 class="text-center mb-0">SABOR CRIOLLO SAS</h1>
+
+    <!-- Botón del carrito mejorado -->
+    <a
+      class="position-absolute top-50 end-0 translate-middle-y me-3 position-relative d-flex align-items-center justify-content-center"
+      style="width: 60px; height: 60px; font-size: 1.5rem;" (click)="mostrarCarro = !mostrarCarro">
+
+      <span class="material-symbols-outlined">
+        shopping_cart
+      </span>
+
+      <!-- Badge con contador -->
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{listaCarrito.length}}
+      </span>
+    </a>
+  </header>
+<br>
+  <!-- Sección Entradas -->
+  <div class="d-flex justify-content-between align-items-center flex-column">
+    <h1>Entradas</h1>
+    <div class="tarjetas">
+      <div class="tarjeta" *ngFor="let entrada of listaEntradas">
+        <img [src]="entrada.imagen" [alt]="entrada.alt" (click)="desplegarVentanaEmergente($event, entrada)"
+          style="cursor: pointer; width: 150px; height: auto; border-radius: 10px; margin-bottom: 10px;">
+        <hr>
+        <br>
+        <h2 style="font-size: 20px; text-align: center; justify-content: center;">{{entrada.nombre}}</h2>
+        <br>
+        <button class="btn btn-warning" (click)="agregarAlCarrito(entrada)">Agregar al carrito</button>
+      </div>
+    </div>
+    <br>
+    <hr>
+  </div>
+
+  <!-- Sección Platos Fuertes -->
+  <div class="d-flex justify-content-between align-items-center flex-column">
+    <h1>Platos Fuertes</h1>
+    <div class="tarjetas">
+      <div class="tarjeta" *ngFor="let plato of listaPlatosFuertes">
+        <img [src]="plato.imagen" [alt]="plato.alt" (click)="desplegarVentanaEmergente($event, plato)"
+          style="cursor: pointer; width: 150px; height: auto; border-radius: 10px; margin-bottom: 10px;">
+        <hr>
+        <br>
+        <h2 style="font-size: 20px; text-align: center; justify-content: center;">{{plato.nombre}}</h2>
+        <br>
+        <button class="btn btn-warning" (click)="agregarAlCarrito(plato)">Agregar al carrito</button>
+      </div>
+    </div>
+    <br>
+    <hr>
+  </div>
+
+  <!-- Sección Postres -->
+  <div class="d-flex justify-content-between align-items-center flex-column">
+    <h1>Postres</h1>
+    <div class="tarjetas">
+      <div class="tarjeta" *ngFor="let postre of listaPostres">
+        <img [src]="postre.imagen" [alt]="postre.alt" (click)="desplegarVentanaEmergente($event, postre)"
+          style="cursor: pointer; width: 150px; height: auto; border-radius: 10px; margin-bottom: 10px;">
+        <hr>
+        <br>
+        <h2 style="font-size: 20px; text-align: center; justify-content: center;">{{postre.nombre}}</h2>
+        <br>
+        <button class="btn btn-warning" (click)="agregarAlCarrito(postre)">Agregar al carrito</button>
+      </div>
+    </div>
+    <br>
+    <hr>
+  </div>
+
+  <!-- Sección Bebidas -->
+  <div class="d-flex justify-content-between align-items-center flex-column">
+    <h1>Bebidas</h1>
+    <div class="tarjetas">
+      <div class="tarjeta" *ngFor="let bebida of listaBebidas">
+        <img [src]="bebida.imagen" [alt]="bebida.alt" (click)="desplegarVentanaEmergente($event, bebida)"
+          style="cursor: pointer; width: 150px; height: auto; border-radius: 10px; margin-bottom: 10px;">
+        <hr>
+        <br>
+        <h2 style="font-size: 20px; text-align: center; justify-content: center;">{{bebida.nombre}}</h2>
+        <br>
+        <button class="btn btn-warning" (click)="agregarAlCarrito(bebida)">Agregar al carrito</button>
+      </div>
+    </div>
+    <br>
+    <hr>
+  </div>
+
+
+  <!-- Sidebar del Carrito -->
+  <div class="cart-sidebar" [class.show]="mostrarCarro">
+    <div class="cart-header bg-primary text-white p-3 d-flex justify-content-between align-items-center">
+      <h3 class="mb-0">Carrito de Compras</h3>
+      <button class="btn-close btn-close-white" (click)="mostrarCarro = false"></button>
+    </div>
+    <div class="cart-body p-3">
+      <div *ngIf="listaCarrito.length > 0; else carritoVacio">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let producto of listaCarrito; let i = index">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <img style="width: 70px; height: auto; border-radius: 10px; margin-bottom: 10px;" [src]="producto.imagen" [alt]="producto.alt">
+                <strong style="font-size: 12px;">{{ producto.nombre }}</strong><br>
+                <small>{{ producto.precio | currency:'COP ':'symbol' }}</small>
+              </div>
+              <div class="d-flex flex-column align-items-end">
+                <select class="form-select form-select-sm mb-2" [(ngModel)]="producto.cantidad">
+                  <option *ngFor="let cantidad of listaCantidades" [value]="cantidad">{{ cantidad }}</option>
+                </select>
+                <button class="btn btn-sm btn-danger" (click)="eliminarDelCarrito(i)">Eliminar</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="mt-3 text-end">
+          <h4>Total: {{ calcularTotal() | currency:'COP ':'symbol' }}</h4>
+          <button class="btn btn-success" (click)="realizarCompra()">Realizar Pago</button>
+        </div>
+      </div>
+      <ng-template #carritoVacio>
+        <div class="text-center py-4">
+          <p class="fs-4 text-danger">El carrito está vacío.</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</body>
