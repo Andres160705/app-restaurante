@@ -15,3 +15,7 @@ bootstrapApplication(AppComponent, {
     provideFirestore(() => getFirestore())
   ]
 }).catch(err => console.error(err));
+
+if (!localStorage.getItem('clienteId')) {
+  localStorage.setItem('clienteId', Date.now().toString());
+}

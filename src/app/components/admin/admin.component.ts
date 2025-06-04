@@ -49,13 +49,21 @@ export class AdminComponent implements OnInit {
 
     // Si no quedan productos en la orden, también puedes eliminar toda la orden (opcional)
     if (orden.productos.length === 0) {
-      // await deleteDoc(ordenRef); // Solo si deseas eliminar la orden completa
       this.listaOrdenes.splice(ordenIndex, 1); // Quitar del arreglo local para que desaparezca de la tabla
     }
   }
 
   async actualizarEstado(ordenId: string, productosActualizados: any[]) {
-    const ordenRef = doc(this.firestore, 'ordenes', ordenId);
-    await updateDoc(ordenRef, { productos: productosActualizados });
+  // Calcula el estado general de la orden
+  let estados = productosActualizados.map(p => p.estado);
+  let estadoGeneral = 'Pendiente';
+  if (estados.every(e => e === 'Entregado')) {
+    estadoGeneral = 'Entregado';
+  } else if (estados.some(e => e === 'En preparación')) {
+    estadoGeneral = 'En preparación';
   }
+
+  const ordenRef = doc(this.firestore, 'ordenes', ordenId);
+  await updateDoc(ordenRef, { productos: productosActualizados, estado: estadoGeneral });
+}
 }

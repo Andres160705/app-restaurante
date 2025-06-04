@@ -184,7 +184,6 @@ export class MenuComponent {
       alert('Compra realizada con éxito.');
       this.carrito.setCarrito(this.listaCarrito);
       this.router.navigate(['/carrito']); // Redirigir al componente de carrito
-      //State es una propiedad que permite pasar datos entre componentes sin necesidad de usar un servicio o almacenamiento local.
       this.listaCarrito = []; // Limpiar el carrito después de la compra
     }
   }

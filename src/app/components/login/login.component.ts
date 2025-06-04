@@ -62,7 +62,7 @@ export class LoginComponent {
           alert('Correo o contraseña incorrectos.');
         }
       } catch (error) {
-        console.error('Error al consultar usuarios:', error); // Agrega este log
+        console.error('Error al consultar usuarios:', error);
         alert('Ocurrió un error al verificar las credenciales.');
       }
     }
